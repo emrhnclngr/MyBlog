@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Http
+@model List<ArticleViewModel>
+@{
+    ViewData["Title"] = "OverView";
+}
+<link href="~/css/article-list.css" rel="stylesheet" />
+
+
+@foreach (ArticleViewModel article in Model)
+{
+    <div class="container">
+
+        <div class="row mb-2 p-1 article-panel">
+            <div class="col col-9">
+                <div class="row">
+                    <div class="col col-4">
+
+                        <div class="row">
+                        </div>
+                    </div>
+                    <div class="col col-8">
+                        <center>
+                            <img src="~/images/@article.ArticlePicture" alt="Alternate Text" style="object-fit: contain; max-width: 200px; max-height: 150px;" />
+                        </center>
+                        <br />
+                        <div class="border-bottom">
+                            <div class="row mb-2 p-1 article-panel"><b>Author : </b> &nbsp; @article.AuthorName</div>
+                            <div class="row mb-2 p-1 article-panel"><b>Created At : </b> &nbsp; @article.GetCreatedTime() </div>
+                        </div>
+                        <br />
+                        <br />
+                        <h3><font color="red">Title</font></h3>
+
+                        <div class="row mb-2 p-1 article-panel"> &nbsp;  @article.Title</div>
+                        <div>
+                        <h3><font color="red">Content</font></h3>
+
+                        <div class="row mb-2 p-1 article-panel"> &nbsp;  @article.Content </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-3">
+
+                <br />
+                <div class="row float-right mt-5 mr-4">
+                    @if (article.AuthorId.ToString().Equals(Context.Session.GetString("userId")))
+                    {
+                        <a class="btn btn-sm btn-warning" asp-controller="Article" asp-action="Edit" asp-route-id="@article.Id"><i class="far fa-edit"></i>Edit</a>
+                        <a class="btn btn-sm btn-danger ml-2" asp-controller="Article" asp-action="Delete" asp-route-id="@article.Id">Delete<i class="fas fa-ban"></i></a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
