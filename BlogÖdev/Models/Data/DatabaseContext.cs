@@ -1,6 +1,7 @@
 ﻿using BlogÖdev.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using BlogÖdev.ViewModels.Article;
+using BlogÖdev.SeedData;
 
 namespace BlogÖdev.Models.Data
 {
@@ -15,7 +16,8 @@ namespace BlogÖdev.Models.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasData(new User(1, "Emirhan", "12345"));
+            modelBuilder.ApplyConfiguration(new UserSeedData());
+            modelBuilder.ApplyConfiguration(new ArticleSeedData());
             modelBuilder.Entity<Article>().Property(x => x.CreatedTime).HasDefaultValueSql("getutcdate()");
         }
 
